@@ -1,0 +1,926 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Visual SLAM and Structure from motion
+\end_layout
+
+\begin_layout LyX-Code
+Problem of estimating 3 dimensional strucutres from 2 dimensional image
+ sequences is called strucutre from motion techniques.A well studied problem
+ in vision community.
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+We should also estimate camera poses in addition to 3D map.
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\emph on
+\begin_inset Formula $CameraPose$
+\end_inset
+
+ 
+\begin_inset Formula $\mathrm{Estimation}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\left[\begin{array}{c}
+u\\
+v\\
+w
+\end{array}\right]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\begin{array}{ccc}
+k_{u} & 0 & u_{0}\\
+0 & k_{v} & v_{0}\\
+0 & 0 & 1
+\end{array}\right]$
+\end_inset
+
+* 
+\begin_inset Formula $\left[\begin{array}{c}
+X\\
+Y\\
+Z
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\left[\begin{array}{c}
+u\\
+v\\
+w
+\end{array}\right]$
+\end_inset
+
+are defined in homogenous coordinates given by
+\end_layout
+
+\begin_layout LyX-Code
+p
+\begin_inset Formula $_{x}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{u}{w}$
+\end_inset
+
+ = u
+\begin_inset Formula $_{0}$
+\end_inset
+
+ + k
+\begin_inset Formula $_{u}$
+\end_inset
+
+
+\begin_inset Formula $\frac{fX}{Z}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout LyX-Code
+p
+\begin_inset Formula $_{y}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{v}{w}$
+\end_inset
+
+ = v
+\begin_inset Formula $_{0}$
+\end_inset
+
+ + k
+\begin_inset Formula $_{v}$
+\end_inset
+
+ 
+\begin_inset Formula $\frac{fY}{Z}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+A more general transformation
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\left[\begin{array}{c}
+u\\
+v\\
+w
+\end{array}\right]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\begin{array}{ccc}
+k_{u} & 0 & u_{0}\\
+0 & k_{v} & v_{0}\\
+0 & 0 & 1
+\end{array}\right]$
+\end_inset
+
+* 
+\begin_inset Formula $\left[\begin{array}{cccc}
+R_{11} & R_{12} & R_{13} & t_{1}\\
+R1 & R_{22} & R_{23} & t_{2}\\
+R_{31} & R_{32} & R_{33} & t_{3}
+\end{array}\right]$
+\end_inset
+
+ 
+\begin_inset Formula $\left[\begin{array}{c}
+X\\
+Y\\
+Z
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\mathrm{(A}$
+\end_inset
+
+== known)? (PnP : DLT)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $PNPSolution:$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Three degrees of freedom for rotation and three degrees for translation
+ (6 unknowns)
+\end_layout
+
+\begin_layout LyX-Code
+so 3 2D-3D correspondences are sufficient for pose estimation.
+\end_layout
+
+\begin_layout LyX-Code
+***Scale is implicitly estimated.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename p3p.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+There are lot of solutions available in literature for PnP solutions.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\mathcal{F}$
+\end_inset
+
+
+\begin_inset Formula $_{ij}$
+\end_inset
+
+(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+,x
+\begin_inset Formula $_{j}$
+\end_inset
+
+) = 
+\begin_inset Formula $x_{i}^{2}$
+\end_inset
+
++ 
+\begin_inset Formula $x_{j}^{2}$
+\end_inset
+
+ - 2.
+\begin_inset Formula $x_{i}.$
+\end_inset
+
+
+\begin_inset Formula $x_{j}$
+\end_inset
+
+.
+\begin_inset Formula $\cos\theta_{ij}$
+\end_inset
+
+ - 
+\begin_inset Formula $d_{ij}^{2}$
+\end_inset
+
+ = 0--------(1)
+\end_layout
+
+\begin_layout LyX-Code
+This method however suffers from severe error propogation.
+\end_layout
+
+\begin_layout LyX-Code
+How??
+\end_layout
+
+\begin_layout LyX-Code
+From C1 and C2 to the triangulation of 3D points.Then finally to the
+\end_layout
+
+\begin_layout LyX-Code
+camera pose C3.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $2D-2DCorrespondences:$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Problem:Scale Ambiguity is defined as follows:
+\end_layout
+
+\begin_layout LyX-Code
+If the motion is estimated on a frame-frame basis , considering only image
+ features , 
+\end_layout
+
+\begin_layout LyX-Code
+there is a scale ambiguity between estimated translation vectors.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename scale_problem.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+We provide an analysis of noise in image features to the computation of
+ scale.
+\end_layout
+
+\begin_layout LyX-Code
+Use external devices like speedometre or GPS.
+\end_layout
+
+\begin_layout LyX-Code
+Notation:
+\end_layout
+
+\begin_layout LyX-Code
+Disturbed Image Features 
+\begin_inset Formula $\left[x\right]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\bar{x}\right]$
+\end_inset
+
++ 
+\begin_inset Formula $\triangle x$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\begin{array}{c}
+u_{a+}\triangle u_{a}\\
+v_{a}+\triangle v_{a}\\
+1
+\end{array}\right]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout LyX-Code
+World 3D disturbance 
+\begin_inset Formula $\left[X\right]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\bar{X}\right]$
+\end_inset
+
++ 
+\begin_inset Formula $\triangle X$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\begin{array}{c}
+X+\triangle X\\
+Y+\triangle Y\\
+Z+\triangle Z\\
+1
+\end{array}\right]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout LyX-Code
+All the disturbances are a result of error in image feature, triangulation
+ method , motion estimation error.
+\end_layout
+
+\begin_layout LyX-Code
+Algorithm:
+\end_layout
+
+\begin_layout LyX-Code
+First Used VL_FEAT libraries for finding sift features for all the images.
+\end_layout
+
+\begin_layout LyX-Code
+Around 20,000 sift features were extracted for each image.
+ This shows the
+\end_layout
+
+\begin_layout LyX-Code
+richness in texture of images.
+\end_layout
+
+\begin_layout LyX-Code
+How are  the sift features found??
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename sift_scale.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $D(x,y,\sigma)=(G(x,y,k\sigma)$
+\end_inset
+
+ - 
+\begin_inset Formula $G(x,y,\sigma)$
+\end_inset
+
+) * 
+\begin_inset Formula $I(x,y)$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout LyX-Code
+After each octave each gaussian image is downsampled by a factor of 2 ,
+ the process is repeated.
+\end_layout
+
+\begin_layout LyX-Code
+For s levels in an octave 
+\begin_inset Formula $k=2^{1/s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename scale_extrema.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Pixel is interest point if it's min/max of neighbourhood.
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Descriptor:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename descriptor.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+8*8 samples turned to 2*2 descriptors.(r*n*n is the size of descriptor).
+\end_layout
+
+\begin_layout LyX-Code
+Find gradient magnitudes and direction at pixels and apply gaussian weights
+ to the gradient magnitude.
+\end_layout
+
+\begin_layout LyX-Code
+Feature Matching:
+\end_layout
+
+\begin_layout LyX-Code
+Matches are rejected for those keypoints for which the ratio of the nearest
+ neighbor distance to the second nearest neighbor distance is greater than
+ 0.7
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula $ComputeCameraMotion:$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+For all adjacent frames corresponding 128 descriptors are matched and best,secon
+d best matches are found out.
+\end_layout
+
+\begin_layout LyX-Code
+We accept a match only if it passes the ratio test given above.
+\end_layout
+
+\begin_layout LyX-Code
+To make the matches even more robust we perform the ransac iterations and
+ find the Fundamental matrix relating the two planes.
+\end_layout
+
+\begin_layout LyX-Code
+After using very tight inliner threshold we reject those outliners which
+ don't fit in.
+\end_layout
+
+\begin_layout LyX-Code
+Then essential matrix is found from the fundamental matrix as 
+\begin_inset Formula $E=K^{1}*F*K$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout LyX-Code
+E = BR where 
+\begin_inset Formula $B\times V=bv$
+\end_inset
+
+ and R is orientation and b is baseline.
+\end_layout
+
+\begin_layout LyX-Code
+Proof:
+\end_layout
+
+\begin_layout LyX-Code
+l and r' are rays from left and right center of projection to a point in
+ scene.
+\end_layout
+
+\begin_layout LyX-Code
+b is translation of right center of projection with respect to left center
+ of projection.
+\end_layout
+
+\begin_layout LyX-Code
+[l b r'] = 0
+\end_layout
+
+\begin_layout LyX-Code
+r' = Rr where R is orientation of right with respect to left.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $l.(b\times Rr)=0$
+\end_inset
+
+ where 
+\begin_inset Formula $BRr=b\times Rr;$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $l^{t}Er=0$
+\end_inset
+
+ => KE is also a solution.
+\end_layout
+
+\begin_layout LyX-Code
+So a pair of rays cannot fix baseline line and orientation but an essential
+ matrix does.
+\end_layout
+
+\begin_layout LyX-Code
+This is known as scale ambiguity.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $bb^{t}=\frac{1}{2}trace(EE^{t})I-EE^{t}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $(b.b)R=Cofactors(E)^{t}-BE.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Let R = [r1 r2 r3] where r
+\begin_inset Formula $_{i}$
+\end_inset
+
+is the ith column.
+\end_layout
+
+\begin_layout LyX-Code
+So E = [b
+\begin_inset Formula $\times$
+\end_inset
+
+r1 b
+\begin_inset Formula $\times$
+\end_inset
+
+r2 b
+\begin_inset Formula $\times$
+\end_inset
+
+r3] so the ambiguity is with baseline when E is scaled.
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula $BundleAdjustment:$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+First 3D point is obtained as follows:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $x=P\times X$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $x'=P'\times X'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Let P = 
+\begin_inset Formula $\left(\begin{array}{cccc}
+p11 & p12 & p13 & p14\\
+p21 & p22 & p23 & p24\\
+p31 & p32 & p33 & p34
+\end{array}\right)$
+\end_inset
+
+ = 
+\begin_inset Formula $\left(\begin{array}{c}
+_{P1^{T}}\\
+_{P2^{T}}\\
+_{P3^{T}}
+\end{array}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+so x 
+\begin_inset Formula $\times$
+\end_inset
+
+PX = 0 (since equality is upto scale for homogeneous coordinates)
+\end_layout
+
+\begin_layout LyX-Code
+so we form A such that AX = 0 solve using SVD and find X.
+\end_layout
+
+\begin_layout LyX-Code
+A = 
+\begin_inset Formula $\left(\begin{array}{c}
+_{xp^{3t}-p^{1t}}\\
+_{yp^{2t}-p^{1t}}\\
+_{x'p^{'3t}-p^{'1t}}\\
+_{y'p^{'2t}-p^{'1t}}
+\end{array}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Now find reprojection error as finding perpendicular distance from image
+ point to line joining 3D point to camera center.
+\end_layout
+
+\begin_layout LyX-Code
+i.e.,Finding set of paramenters that most accurately predict the locations
+ of the observed points in set of given images .The problem formulation is
+ as follows:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $v_{ij}$
+\end_inset
+
+ is a binary variable = 1 if point is seen in image j
+\end_layout
+
+\begin_layout LyX-Code
+                        = 0 elsewhere
+\end_layout
+
+\begin_layout LyX-Code
+d(x,y) is the euclidean distance between image points x and y.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $Q(a_{j},b_{i})$
+\end_inset
+
+ is the projection of point i on image j.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\underset{i=1}{\overset{n}{\sum}}$
+\end_inset
+
+
+\begin_inset Formula $\underset{j=1}{\overset{m}{\sum}}$
+\end_inset
+
+ 
+\begin_inset Formula $v_{ij}d(Q(ai,bj),xij)^{2}$
+\end_inset
+
+                           
+\end_layout
+
+\begin_layout LyX-Code
+Levenberg Marquardt algorithm is highly succesful algorithm for bundle adjustmen
+t.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula $scale-Computation:$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+The first camera of first frame we se it as [I|0].
+\end_layout
+
+\begin_layout LyX-Code
+The scond camera is found from essential matrix and is scaled as:
+\end_layout
+
+\begin_layout LyX-Code
+Pcam(:,4,2) = Pcam(:,4,2)./norm(Pcam(:,4,2);
+\end_layout
+
+\begin_layout LyX-Code
+They both are reference for scale of next camera poses.
+\end_layout
+
+\begin_layout LyX-Code
+For example we consider frames 1,2,3.
+\end_layout
+
+\begin_layout LyX-Code
+All the point correspondences between 1 and 2 are known to us.
+\end_layout
+
+\begin_layout LyX-Code
+Similarly point correspondences between 2 and 3 are known to us.
+\end_layout
+
+\begin_layout LyX-Code
+We will try to find if any corresponding match between 1 and 2 is common
+ to 2 and 3.
+\end_layout
+
+\begin_layout LyX-Code
+Finally we have all the three frame matches.
+\end_layout
+
+\begin_layout LyX-Code
+We will triangulate matches in 1 and 2 to find 3D point.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $\left[\begin{array}{c}
+mu\\
+mv\\
+m
+\end{array}\right]$
+\end_inset
+
+= 
+\begin_inset Formula $\left[\begin{array}{cccc}
+r11 & r12 & r13 & st_{x}\\
+r21 & r22 & r23 & st_{y}\\
+r31 & r32 & r33 & st_{z}
+\end{array}\right]$
+\end_inset
+
+
+\begin_inset Formula $\left[\begin{array}{c}
+x\\
+y\\
+z\\
+1
+\end{array}\right]$
+\end_inset
+
+ gives the scale of translation.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Formula $As=b$
+\end_inset
+
+ where A = 
+\begin_inset Formula $\left[t_{z}u-t_{x}\right]$
+\end_inset
+
+  b = 
+\begin_inset Formula $\left[(r_{1}^{t}-r_{3}^{t}u)X\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+A first order of error in scale estimation proves that this method outperforms
+ traditional PnP Solutions.
+\end_layout
+
+\end_body
+\end_document
